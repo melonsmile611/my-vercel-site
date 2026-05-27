@@ -68,11 +68,11 @@ export default function Home() {
             <div>
               <h2 className="text-2xl font-bold text-charcoal mb-4">关于我们 🌸</h2>
               <p className="text-muted leading-relaxed mb-4">
-                我们是来自塔斯马尼亚的创作者小组。这个小屋是用来放慢节奏的——
-                在快节奏的世界里找一点轻盈的时刻。
+                我们住在塔斯马尼亚，岛的南边，离南极洲比离悉尼更近。
+                做这个小屋没有什么大道理，就是想有个地方可以什么都不想，玩一玩。
               </p>
               <p className="text-muted leading-relaxed mb-6">
-                游戏会慢慢增加。每一个都是精心做的小东西，希望能让你安静一会儿。
+                游戏会慢慢加的。不急。
               </p>
               <div className="flex flex-col gap-3 text-sm text-muted">
                 <span>🌿 树洞 · <a href="https://www.somewhere-quiet.com" target="_blank" rel="noopener noreferrer" className="text-mint-600 hover:underline">somewhere-quiet.com</a></span>
