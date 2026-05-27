@@ -77,7 +77,7 @@ export default function Home() {
               <div className="flex flex-col gap-3 text-sm text-muted">
                 <span>🌿 树洞 · <a href="https://www.somewhere-quiet.com" target="_blank" rel="noopener noreferrer" className="text-mint-600 hover:underline">somewhere-quiet.com</a></span>
                 <span>🐦 YouTube · <a href="https://youtube.com/@SomeWhereQuiet611" target="_blank" rel="noopener noreferrer" className="text-mint-600 hover:underline">@SomeWhereQuiet611</a></span>
-                <span>✍️ 博客 · <a href="https://bloomlikecrocus.com" target="_blank" rel="noopener noreferrer" className="text-mint-600 hover:underline">bloomlikecrocus.com</a></span>
+                <span>🛒 Gumroad · <a href="https://studioSarahDigital.gumroad.com" target="_blank" rel="noopener noreferrer" className="text-mint-600 hover:underline">studioSarahDigital.gumroad.com</a></span>
               </div>
             </div>
 
