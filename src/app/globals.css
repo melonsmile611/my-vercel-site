@@ -29,6 +29,12 @@
 .font-serif      { font-family: var(--font-serif), 'Georgia', serif; }
 .font-cormorant  { font-family: var(--font-cormorant), 'Georgia', serif; }
 
+@keyframes sparkle {
+  0%, 100% { opacity: 0;   transform: scale(0.4) rotate(0deg);   }
+  40%       { opacity: 0.9; transform: scale(1)   rotate(15deg);  }
+  60%       { opacity: 0.7; transform: scale(0.8) rotate(-10deg); }
+}
+
 * { box-sizing: border-box; }
 
 html {
