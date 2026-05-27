@@ -30,7 +30,7 @@ export default function Home() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-mint-100 text-mint-700 text-sm font-semibold mb-6 border border-mint-200">
             ✨ Slow down. Play a little.
           </div>
-          <h1 className="font-serif text-6xl text-charcoal leading-tight mb-4">
+          <h1 className="font-cormorant text-7xl text-charcoal leading-tight mb-4 italic" style={{ fontWeight: 300, letterSpacing: "0.01em" }}>
             Healing Corner
           </h1>
           <p className="text-muted text-lg max-w-md mx-auto leading-relaxed">

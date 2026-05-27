@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito, DM_Serif_Display } from "next/font/google";
+import { Nunito, DM_Serif_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -14,6 +14,13 @@ const serif = DM_Serif_Display({
   weight: "400",
 });
 
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+});
+
 export const metadata: Metadata = {
   title: "Healing Corner",
   description: "Mini healing games to help you slow down — sound mystery box, breathing, bubbles, and more.",
@@ -21,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${nunito.variable} ${serif.variable}`}>
+    <html lang="en" className={`${nunito.variable} ${serif.variable} ${cormorant.variable}`}>
       <body className="min-h-screen flex flex-col">{children}</body>
     </html>
   );
