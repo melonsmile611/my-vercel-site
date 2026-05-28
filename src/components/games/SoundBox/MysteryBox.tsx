@@ -1,8 +1,6 @@
 "use client";
 
-const RIBBON = "#3da082";
-const PAPER  = "linear-gradient(160deg, #faf0dc 0%, #ead8a8 55%, #d8c490 100%)";
-const GRAIN  = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='rgba(0,0,0,0.03)'/%3E%3C/svg%3E")`;
+const GROOVES = [54, 46, 38, 30];
 
 interface Props {
   playing: boolean;
@@ -12,80 +10,112 @@ interface Props {
   onClick: () => void;
 }
 
-function BoxHalf({ height, children }: { height: number; children?: React.ReactNode }) {
-  return (
-    <div style={{
-      width: 160, height,
-      borderRadius: 8,
-      background: PAPER,
-      boxShadow: "0 4px 18px rgba(60,100,80,0.14), inset 0 1px 0 rgba(255,255,255,0.55)",
-      position: "relative", overflow: "hidden",
-    }}>
-      <div style={{ position:"absolute",inset:0,backgroundImage:GRAIN }} />
-      {/* horizontal ribbon */}
-      <div style={{ position:"absolute",top:"50%",left:0,right:0,height:16,marginTop:-8,background:RIBBON,opacity:0.84 }} />
-      {/* vertical ribbon */}
-      <div style={{ position:"absolute",left:"50%",top:0,bottom:0,width:16,marginLeft:-8,background:RIBBON,opacity:0.84 }} />
-      {/* cross shine */}
-      <div style={{ position:"absolute",left:"50%",top:"50%",width:16,height:16,marginLeft:-8,marginTop:-8,background:"rgba(255,255,255,0.26)" }} />
-      {/* edge shadows */}
-      <div style={{ position:"absolute",left:0,top:0,bottom:0,width:12,background:"linear-gradient(to right,rgba(0,0,0,0.09),transparent)" }} />
-      <div style={{ position:"absolute",left:0,right:0,bottom:0,height:12,background:"linear-gradient(to top,rgba(0,0,0,0.08),transparent)" }} />
-      {children}
-    </div>
-  );
-}
-
 export default function MysteryBox({ playing, answered, correct, revealIcon, onClick }: Props) {
-  const lidLift = playing && !answered ? -20 : answered ? -82 : 0;
+  const labelFill = answered && correct ? "#4db89c" : playing ? "#33a082" : "#b2e4d4";
+  const armColor  = playing ? "#4db89c" : "#8aab9c";
+
+  // tone arm tip: resting (off record) → playing (on record)
+  const tipX = playing && !answered ? 100 : 124;
+  const tipY = playing && !answered ? 70  : 44;
 
   return (
     <button
       onClick={onClick}
       aria-label="Play mystery sound"
       className="flex flex-col items-center"
-      style={{ background:"none", border:"none", padding:0,
+      style={{ background: "none", border: "none", padding: 0,
                cursor: answered ? "default" : "pointer" }}
     >
       <div style={{
         position: "relative", width: 160,
         animation:
           playing && !answered
-            ? "boxShake 0.5s ease-in-out infinite, boxGlow 1.6s ease-in-out infinite"
+            ? "boxGlow 1.6s ease-in-out infinite"
             : answered && correct
             ? "boxGlow 2s ease-in-out infinite"
             : "none",
       }}>
 
-        {/* top half — lifts up */}
-        <div style={{
-          position: "relative", zIndex: 2,
-          transform: `translateY(${lidLift}px)`,
-          transition: "transform 0.55s cubic-bezier(0.34,1.56,0.64,1)",
-        }}>
-          <BoxHalf height={58} />
-        </div>
+        <svg width="160" height="170" viewBox="0 0 160 170">
+          <defs>
+            <radialGradient id="recGrad" cx="38%" cy="32%">
+              <stop offset="0%"   stopColor="#4a4848"/>
+              <stop offset="100%" stopColor="#1a1a1a"/>
+            </radialGradient>
+            <linearGradient id="cabGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stopColor="#e0c89e"/>
+              <stop offset="100%" stopColor="#c8a870"/>
+            </linearGradient>
+          </defs>
 
-        {/* 2 px gap between halves when closed */}
-        <div style={{ height: 2 }} />
+          {/* wooden cabinet */}
+          <rect x="8" y="138" width="144" height="28" rx="8" fill="url(#cabGrad)" />
+          <rect x="8" y="138" width="144" height="6"  rx="4" fill="rgba(255,255,255,0.18)" />
 
-        {/* bottom half — stays still */}
-        <BoxHalf height={122}>
-          {answered && (
-            <div style={{
-              position:"absolute", inset:0,
-              display:"flex", alignItems:"center", justifyContent:"center",
-              animation:"floatUp 0.65s cubic-bezier(0.34,1.56,0.64,1) forwards",
-              fontSize: 46,
-            }}>
-              {revealIcon}
-            </div>
-          )}
-        </BoxHalf>
+          {/* platter shadow */}
+          <ellipse cx="80" cy="140" rx="60" ry="7" fill="rgba(0,0,0,0.13)" />
+
+          {/* spinning vinyl record */}
+          <g style={{
+            transformBox: "fill-box",
+            transformOrigin: "center",
+            animation: playing && !answered ? "spin 3.5s linear infinite" : "none",
+          }}>
+            <circle cx="80" cy="82" r="62" fill="url(#recGrad)" />
+            {GROOVES.map((r, i) => (
+              <circle key={i} cx="80" cy="82" r={r}
+                fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="1.5" />
+            ))}
+            <circle cx="80" cy="82" r="62" fill="none"
+              stroke="rgba(255,255,255,0.06)" strokeWidth="2" />
+            {/* label */}
+            <circle cx="80" cy="82" r="20" fill={labelFill}
+              style={{ transition: "fill 0.5s" }} />
+            <circle cx="80" cy="82" r="20" fill="none"
+              stroke="rgba(255,255,255,0.22)" strokeWidth="1" />
+            <line x1="67" y1="82" x2="93" y2="82"
+              stroke="rgba(255,255,255,0.28)" strokeWidth="1" />
+            <line x1="80" y1="69" x2="80" y2="95"
+              stroke="rgba(255,255,255,0.28)" strokeWidth="1" />
+            {/* spindle */}
+            <circle cx="80" cy="82" r="3.5" fill="#111" />
+          </g>
+
+          {/* tone arm */}
+          <line
+            x1="148" y1="15" x2={tipX} y2={tipY}
+            stroke={armColor} strokeWidth="3.5" strokeLinecap="round"
+            style={{
+              transition: "all 0.9s cubic-bezier(0.4,0,0.2,1)",
+              filter: playing ? "drop-shadow(0 0 5px #4db89c99)" : "none",
+            }}
+          />
+          {/* arm needle */}
+          <circle cx={tipX} cy={tipY} r="4" fill={armColor}
+            style={{ transition: "all 0.9s cubic-bezier(0.4,0,0.2,1)" }} />
+          {/* arm pivot */}
+          <circle cx="148" cy="15" r="8"  fill={armColor}
+            style={{ transition: "fill 0.3s" }} />
+          <circle cx="148" cy="15" r="4"  fill="#f7ecd8" />
+        </svg>
+
+        {/* reveal icon on label */}
+        {answered && (
+          <div style={{
+            position: "absolute",
+            top: `${82 - 20}px`, left: `${80 - 20}px`,
+            width: 40, height: 40,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            animation: "floatUp 0.65s cubic-bezier(0.34,1.56,0.64,1) forwards",
+            fontSize: 30, pointerEvents: "none",
+          }}>
+            {revealIcon}
+          </div>
+        )}
 
         {/* ground shadow */}
-        <div style={{ width:130,height:10,margin:"5px auto 0",borderRadius:"50%",
-                      background:"rgba(60,100,80,0.15)",filter:"blur(5px)" }} />
+        <div style={{ width: 130, height: 10, margin: "3px auto 0",
+          borderRadius: "50%", background: "rgba(60,100,80,0.14)", filter: "blur(5px)" }} />
       </div>
 
       <span className="mt-2.5 text-[11px] font-bold uppercase tracking-widest transition-colors duration-300"
