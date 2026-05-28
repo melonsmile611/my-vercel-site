@@ -3,11 +3,9 @@ import type { GameId } from "./games";
 export const ICONS: Record<GameId, React.ReactNode> = {
   sound: (
     <svg width="100%" height="100%" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="8" y="21" width="28" height="17" rx="3" stroke="currentColor" strokeWidth="2.2"/>
-      <rect x="6" y="14" width="32" height="9" rx="2" stroke="currentColor" strokeWidth="2.2"/>
-      <line x1="22" y1="14" x2="22" y2="38" stroke="currentColor" strokeWidth="2.2"/>
-      <path d="M22 14C19 11 15 10 13 12.5C11 15 13.5 16.5 22 14Z" fill="currentColor" opacity="0.75"/>
-      <path d="M22 14C25 11 29 10 31 12.5C33 15 30.5 16.5 22 14Z" fill="currentColor" opacity="0.75"/>
+      <path d="M8 28 C8 10 36 10 36 28" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" fill="none"/>
+      <rect x="3"  y="26" width="11" height="14" rx="4" fill="currentColor" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.8"/>
+      <rect x="30" y="26" width="11" height="14" rx="4" fill="currentColor" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.8"/>
     </svg>
   ),
   breathing: (
