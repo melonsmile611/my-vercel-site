@@ -29,6 +29,15 @@
 .font-serif      { font-family: var(--font-serif), 'Georgia', serif; }
 .font-cormorant  { font-family: var(--font-cormorant), 'Georgia', serif; }
 
+@keyframes bobble {
+  0%, 100% { transform: translateY(0px);  }
+  50%       { transform: translateY(-7px); }
+}
+@keyframes floatNote {
+  0%   { opacity: 0;   transform: translateY(0px)   rotate(-8deg); }
+  20%  { opacity: 0.9; }
+  100% { opacity: 0;   transform: translateY(-50px) rotate(12deg); }
+}
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
